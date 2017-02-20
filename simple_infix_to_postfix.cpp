@@ -1,4 +1,4 @@
- #include<iostream>
+#include<iostream>
 using namespace std;
 
 #include "D:\programs\stack.h"
@@ -19,7 +19,7 @@ int tokentype(char x)
                 return Operator;
 }
 
-int isp(char x){
+int prec(char x){
     switch(x){
         case '^': return 3;
         case '*':
@@ -31,21 +31,12 @@ int isp(char x){
     }
 
 }
-int icp(char x){
-    switch(x){
-        case '(': return 4;
-        case '^': return 4;
-        case '*':
-        case '/': return 2;
-        case '+':
-        case '-': return 1;
-    }
-
-}
-void Infix_Postfix  (char infix[], char postfix[])
-// Output the postfix form of the infix expression e. Also, ‘#’ is used at the bottom of the stack
+int main()
 {
-	Stack<char,15> s; // initialize stack
+    char infix[100], postfix[100];
+    cout<<"Enter an infix expression: ";
+    cin>>infix;
+    Stack<char,15> s; // initialize stack
 	char x,y;
 	int j=0;
 	s.Push('#');
@@ -69,7 +60,7 @@ void Infix_Postfix  (char infix[], char postfix[])
             break;
 		case Operator:
 		    y = s.Pop();
-            while(isp(y) >= icp(x)){
+             while(prec(y) >= prec(x)){
                 postfix[j++]= y;
                 y = s.Pop();
             }
@@ -78,20 +69,13 @@ void Infix_Postfix  (char infix[], char postfix[])
 		}
 	}
 	 // end of expression; empty stack
+	// cout<<j;
 	 y = s.Pop();
 	 while (y != '#'){
         postfix[j++]= y;
         y = s.Pop();
     }
 	postfix[j]='\0';
-}
-
-int main()
-{
-    char infix[100], postfix[100];
-    cout<<"Enter an infix expression: ";
-    cin>>infix;
-    Infix_Postfix(infix,postfix);
-    cout<<postfix;
+cout<<postfix;
 
 }

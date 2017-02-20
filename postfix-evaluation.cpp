@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-#include "stack.h"
+#include "D:\programs\stack.h"
 
 
 int main(){
